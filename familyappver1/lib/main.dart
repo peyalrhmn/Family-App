@@ -3,8 +3,13 @@ import 'package:familyappver1/Screens/WelcomePage/mainwelcomepage.dart';
 import 'package:familyappver1/Screens/SignInPage/mainsigninpage.dart';
 import 'package:familyappver1/Screens/SignUpPage/mainsignuppage.dart';
 import 'package:familyappver1/constants.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() => runApp(MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.

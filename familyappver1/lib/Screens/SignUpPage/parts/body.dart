@@ -2,8 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:familyappver1/constants.dart';
 import 'package:familyappver1/Screens/SignInPage/mainsigninpage.dart';
 import 'package:familyappver1/Screens/SignUpPage/mainsignuppage.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-class Body extends StatelessWidget {
+class Body extends StatefulWidget{
+  @override
+  _SignUpState createState() => _SignUpState();
+}
+
+class _SignUpState extends State<Body> {
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  String _email = '';
+  String _password = '';
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,8 +43,13 @@ class Body extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(50.0, 5.0, 50.0, 0.0),
             child: Column(
               children: <Widget>[
-                const TextField(
-                  decoration: InputDecoration(
+                 TextFormField(
+                   onChanged: (val) {
+                     setState(() {
+                       _email = val;
+                     });
+                   },
+                  decoration: const InputDecoration(
                     labelText: 'Email',
                     labelStyle: TextStyle(
                       fontFamily: 'Roboto',
@@ -40,8 +59,13 @@ class Body extends StatelessWidget {
                     ),
                   ),
                 ),
-                const TextField(
-                  decoration: InputDecoration(
+                 TextFormField(
+                  /* onChanged: (val) {
+                     setState(() {
+                       _email = val;
+                     });
+                   },*/
+                  decoration: const InputDecoration(
                     labelText: 'Confirm Email',
                     labelStyle: TextStyle(
                       fontFamily: 'Roboto',
@@ -51,8 +75,13 @@ class Body extends StatelessWidget {
                     ),
                   ),
                 ),
-                const TextField(
-                  decoration: InputDecoration(
+                 TextFormField(
+                   onChanged: (val) {
+                     setState(() {
+                       _password = val;
+                     });
+                   },
+                  decoration: const InputDecoration(
                     labelText: 'Password',
                     labelStyle: TextStyle(
                       fontFamily: 'Roboto',
@@ -63,8 +92,13 @@ class Body extends StatelessWidget {
                   ),
                   obscureText: true,
                 ),
-                const TextField(
-                  decoration: InputDecoration(
+                 TextFormField(
+                  /* onChanged: (val) {
+                     setState(() {
+                       _password = val;
+                     });
+                   }, */
+                  decoration: const InputDecoration(
                     labelText: 'Confirm Password',
                     labelStyle: TextStyle(
                       fontFamily: 'Roboto',
@@ -84,7 +118,24 @@ class Body extends StatelessWidget {
                     color: Colors.redAccent[200],
                     elevation: 5.0,
                     child: GestureDetector(
-                      onTap: () {},
+                      onTap: () async {
+
+                        try {
+                          UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+                              email: _email,
+                              password: _password,
+                          );
+                        } on FirebaseAuthException catch (e) {
+                          if (e.code == 'weak-password') {
+                            print('The password provided is too weak.');
+                          } else if (e.code == 'email-already-in-use') {
+                            print('The account already exists for that email.');
+                          }
+                        } catch (e) {
+                          print(e);
+                        }
+
+                      },
                       child: const Center(
                         child: Text(
                           'Join the Team!',

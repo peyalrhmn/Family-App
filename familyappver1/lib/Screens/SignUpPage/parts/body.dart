@@ -66,7 +66,7 @@ class _SignUpState extends State<Body> {
                      });
                    },*/
                   decoration: const InputDecoration(
-                    labelText: 'Confirm Email',
+                    labelText: 'Full Name',
                     labelStyle: TextStyle(
                       fontFamily: 'Roboto',
                       fontWeight: FontWeight.normal,
@@ -125,6 +125,7 @@ class _SignUpState extends State<Body> {
                               email: _email,
                               password: _password,
                           );
+
                         } on FirebaseAuthException catch (e) {
                           if (e.code == 'weak-password') {
                             print('The password provided is too weak.');
@@ -138,7 +139,7 @@ class _SignUpState extends State<Body> {
                       },
                       child: const Center(
                         child: Text(
-                          'Join the Team!',
+                          'Register Now',
                           style: TextStyle(
                             color: Colors.white70,
                             fontFamily: 'Roboto',

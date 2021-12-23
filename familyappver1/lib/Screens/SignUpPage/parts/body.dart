@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:familyappver1/constants.dart';
 import 'package:familyappver1/Screens/SignInPage/mainsigninpage.dart';
@@ -16,6 +17,7 @@ class _SignUpState extends State<Body> {
 
   String _email = '';
   String _password = '';
+  String _fName='';
 
 
   @override
@@ -60,11 +62,11 @@ class _SignUpState extends State<Body> {
                   ),
                 ),
                  TextFormField(
-                  /* onChanged: (val) {
+                   onChanged: (val) {
                      setState(() {
-                       _email = val;
+                       _fName = val;
                      });
-                   },*/
+                   },
                   decoration: const InputDecoration(
                     labelText: 'Full Name',
                     labelStyle: TextStyle(
@@ -125,6 +127,16 @@ class _SignUpState extends State<Body> {
                               email: _email,
                               password: _password,
                           );
+                          User? user = FirebaseAuth.instance.currentUser;
+
+                          await FirebaseFirestore.instance.collection("users").doc(user!.uid).set({
+                            'uid': user!.uid,
+                            'Full Name': _fName,
+                            'email': _email,
+                            'password': _password,
+
+
+                          });
 
                         } on FirebaseAuthException catch (e) {
                           if (e.code == 'weak-password') {

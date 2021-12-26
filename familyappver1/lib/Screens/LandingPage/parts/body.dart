@@ -41,6 +41,8 @@
 //   }
 // }
 import 'package:familyappver1/Authentication/authentication_services.dart';
+import 'package:familyappver1/Screens/CreateFamily/createFamily.dart';
+import 'package:familyappver1/Screens/JoinFamily/joinFamily.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
@@ -60,7 +62,16 @@ class LandingPage extends StatelessWidget{
       ]
   )
   );
-
+  void _goToJoin(BuildContext context){
+    Navigator.push(context, MaterialPageRoute(builder: (context)=>JoinGroup(),
+    ),
+    );
+  }
+  void _goToCreate(BuildContext context){
+    Navigator.push(context, MaterialPageRoute(builder: (context)=>CreateGroup(),
+    ),
+    );
+  }
   @override
   Widget build(BuildContext context) =>Scaffold(
     appBar: AppBar(
@@ -83,6 +94,16 @@ class LandingPage extends StatelessWidget{
         SpeedDialChild(
             child: Icon(Icons.wc_rounded),
             label: 'Notify Family',
+        ),
+        SpeedDialChild(
+          child: Icon(Icons.family_restroom_outlined),
+          label: 'Create Family',
+          onTap: () => _goToCreate(context),
+        ),
+        SpeedDialChild(
+            child: Icon(Icons.family_restroom),
+            label: 'Join Family',
+            onTap: () => _goToJoin(context),
         ),
         SpeedDialChild(
             child: Icon(Icons.logout),

@@ -43,6 +43,7 @@
 import 'package:familyappver1/Authentication/authentication_services.dart';
 import 'package:familyappver1/Screens/CreateFamily/createFamily.dart';
 import 'package:familyappver1/Screens/JoinFamily/joinFamily.dart';
+import 'package:familyappver1/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
@@ -110,6 +111,8 @@ class LandingPage extends StatelessWidget{
             label: 'Logout',
             onTap: (){
               context.read<AuthenticationService>().signOut();
+              Navigator.pushReplacement(
+                  context, MaterialPageRoute(builder: (_) => MyApp()));
             },
         ),
       ],

@@ -1,5 +1,6 @@
 import 'package:familyappver1/Authentication/authentication_services.dart';
 import 'package:familyappver1/Screens/LandingPage/parts/body.dart';
+import 'package:familyappver1/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:familyappver1/Screens/SignUpPage/mainsignuppage.dart';
@@ -8,15 +9,18 @@ import 'package:familyappver1/Screens/WelcomePage/mainwelcomepage.dart';
 import 'package:familyappver1/Screens/LandingPage/main.dart';
 import 'package:provider/provider.dart';
 
-class Body extends StatefulWidget{
-  @override
-  _SignInState createState() => _SignInState();
-}
-
-class _SignInState extends State<Body> {
+class Body extends StatelessWidget{
+//   @override
+//   _SignInState createState() => _SignInState();
+// }
+//
+// class _SignInState extends State<Body> {
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  TextEditingController emailController= TextEditingController();
+  TextEditingController passController= TextEditingController();
 
   String _email = '';
   String _password = '';
@@ -49,12 +53,13 @@ class _SignInState extends State<Body> {
               child: Column(
                 children: <Widget>[
                 TextFormField(
-                onChanged: (val) {
-                  setState(() {
-                    _email = val;
-                  });
-                },
-                decoration: const InputDecoration(
+                // onChanged: (val) {
+                //   setState(() {
+                //     _email = val;
+                //   });
+                // },
+                  controller: emailController,
+                  decoration: const InputDecoration(
                   labelText: 'Email',
                   labelStyle: TextStyle(
                     fontFamily: 'Roboto',
@@ -65,11 +70,12 @@ class _SignInState extends State<Body> {
                   ),
                 ),
                 TextFormField(
-                  onChanged: (val) {
-                    setState(() {
-                      _password = val;
-                    });
-                  },
+                  // onChanged: (val) {
+                  //   setState(() {
+                  //     _password = val;
+                  //   });
+                  // },
+                  controller: passController,
                   decoration: const InputDecoration(
                     labelText: 'Password',
                     labelStyle: TextStyle(
@@ -118,11 +124,15 @@ class _SignInState extends State<Body> {
                       onTap: () {
                         try {
                           context.read<AuthenticationService>().signIn(
-                              email: _email, password: _password);
+                              email: emailController.text, password: passController.text);
+                          Navigator.pushReplacement(
+                              context, MaterialPageRoute(builder: (_) => MyApp()));
+
                         }on Exception catch(ex)
                         {
                           print("Error!");
                         }
+                        FocusScope.of(context).unfocus(); // to hide keybaord and make change screen a bit fast
                         },
                       child: const Center(
                         child: Text(

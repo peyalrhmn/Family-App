@@ -40,6 +40,7 @@
 //     );
 //   }
 // }
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:familyappver1/Authentication/authentication_services.dart';
 import 'package:familyappver1/Screens/CreateFamily/createFamily.dart';
 import 'package:familyappver1/Screens/JoinFamily/joinFamily.dart';
@@ -50,7 +51,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:provider/provider.dart';
 
-class LandingPage extends StatelessWidget{
+class LandingPage extends StatefulWidget{
+
+  @override
+  State<LandingPage> createState() => _LandingPageState();
+}
+
+class _LandingPageState extends State<LandingPage> {
+  @override
+  void initState() {
+    super.initState();
+    updateLastActiveTime();
+  }
   Widget textbuild()=> RichText(text:
   TextSpan(
       children: [
@@ -64,16 +76,19 @@ class LandingPage extends StatelessWidget{
       ]
   )
   );
+
   void _goToJoin(BuildContext context){
     Navigator.push(context, MaterialPageRoute(builder: (context)=>JoinGroup(),
     ),
     );
   }
+
   void _goToCreate(BuildContext context){
     Navigator.push(context, MaterialPageRoute(builder: (context)=>CreateGroup(),
     ),
     );
   }
+
   @override
   Widget build(BuildContext context) =>Scaffold(
     appBar: AppBar(
@@ -127,6 +142,14 @@ class LandingPage extends StatelessWidget{
     ),
   );
 
+  Future<void> updateLastActiveTime() async {
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    final User? user = auth.currentUser;
+    final uid = user!.uid;
+    await FirebaseFirestore.instance.collection("users").doc(uid).update({
+      'Last_Active_Time': Timestamp.now(),
+    });
+  }
 }
 
 

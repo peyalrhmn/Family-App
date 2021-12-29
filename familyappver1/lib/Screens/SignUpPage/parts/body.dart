@@ -135,7 +135,9 @@ class _SignUpState extends State<Body> {
                             'email': _email,
                             'password': _password,
                             'FamilyID': null,
-
+                            'Latitude': null,
+                            'Longitude': null,
+                            'Last_Active_Time': null,
                           });
 
                         } on FirebaseAuthException catch (e) {

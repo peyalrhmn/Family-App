@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'dart:typed_data';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
@@ -12,10 +14,10 @@ class Locations extends StatefulWidget{
   @override
   _LocationsState createState() => _LocationsState();
 }
-class _LocationsState extends State<Locations>{
-  Set<Marker> _marker={};
-  LatLng iniLoc= LatLng(23.815521706161224, 90.42551504825647);
-  Location _locationTracker=Location();
+class _LocationsState extends State<Locations> {
+  Set<Marker> _marker = {};
+  LatLng iniLoc = LatLng(23.815521706161224, 90.42551504825647);
+  Location _locationTracker = Location();
   late BitmapDescriptor myMarker;
   late GoogleMapController _controller;
 
@@ -23,14 +25,17 @@ class _LocationsState extends State<Locations>{
   void initState() {
     super.initState();
     setCustomMarker();
+    updateLocation();
   }
 
   void setCustomMarker() async {
-    myMarker= await BitmapDescriptor.fromAssetImage(ImageConfiguration(), 'assets/images/human_logo.png');
+    myMarker = await BitmapDescriptor.fromAssetImage(
+        ImageConfiguration(), 'assets/images/human_logo.png');
   }
+
   @override
-  Widget build(BuildContext context){
-    CameraPosition initialCameraPosition= CameraPosition(
+  Widget build(BuildContext context) {
+    CameraPosition initialCameraPosition = CameraPosition(
       target: iniLoc,
       zoom: 16,
       tilt: 0,
@@ -44,8 +49,8 @@ class _LocationsState extends State<Locations>{
         ),
         body: GoogleMap(
           zoomControlsEnabled: false,
-          onMapCreated: (GoogleMapController controller){
-            _controller=controller;
+          onMapCreated: (GoogleMapController controller) {
+            _controller = controller;
           },
           mapType: MapType.normal,
           initialCameraPosition: initialCameraPosition,
@@ -59,7 +64,7 @@ class _LocationsState extends State<Locations>{
               SpeedDialChild(
                 child: Icon(Icons.location_on),
                 label: 'My Location',
-                onTap: (){
+                onTap: () {
                   getCurrentLocation();
                 },
               ),
@@ -75,12 +80,12 @@ class _LocationsState extends State<Locations>{
   }
 
   void getCurrentLocation() async {
-    var location= await _locationTracker.getLocation();
-    double lat1=location.latitude!;
-    double long1=location.longitude!;
+    var location = await _locationTracker.getLocation();
+    double lat1 = location.latitude!;
+    double long1 = location.longitude!;
     _controller.animateCamera(CameraUpdate.newCameraPosition(new CameraPosition(
       bearing: 30,
-      target: LatLng(lat1,long1),
+      target: LatLng(lat1, long1),
       zoom: 16,
     )));
     setState(() {
@@ -88,10 +93,20 @@ class _LocationsState extends State<Locations>{
         Marker(
           icon: myMarker,
           markerId: MarkerId('id-1'),
-          position: LatLng(lat1,long1),
+          position: LatLng(lat1, long1),
         ),
       );
     });
   }
 
+  Future<void> updateLocation() async {
+    var location = await _locationTracker.getLocation();
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    final User? user = auth.currentUser;
+    final uid = user!.uid;
+    await FirebaseFirestore.instance.collection("users").doc(uid).update({
+      'Latitude': location.latitude,
+      'Longitude': location.longitude,
+    });
+  }
 }

@@ -43,6 +43,7 @@
 import 'package:familyappver1/Authentication/authentication_services.dart';
 import 'package:familyappver1/Screens/CreateFamily/createFamily.dart';
 import 'package:familyappver1/Screens/JoinFamily/joinFamily.dart';
+import 'package:familyappver1/Screens/Location/LocationsHomePage.dart';
 import 'package:familyappver1/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -105,6 +106,13 @@ class LandingPage extends StatelessWidget{
             child: Icon(Icons.family_restroom),
             label: 'Join Family',
             onTap: () => _goToJoin(context),
+        ),
+        SpeedDialChild(
+          child: Icon(Icons.add_location_alt_outlined),
+          label: 'Family Locations',
+          onTap: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context){return Locations();},));
+          },
         ),
         SpeedDialChild(
             child: Icon(Icons.logout),

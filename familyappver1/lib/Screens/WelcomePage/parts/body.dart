@@ -7,11 +7,12 @@ class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFfdc7aa),
+      //backgroundColor: const Color(0xFFfdc7aa),
+      backgroundColor: const Color(0xFFfcf5ed),
       body: Column(
         children: <Widget>[
           Container(
-            padding: const EdgeInsets.fromLTRB(20.0, 70.0, 20.0, 0.0),
+            padding: const EdgeInsets.fromLTRB(20.0, 75.0, 20.0, 0.0),
             margin: const EdgeInsets.all(10.0),
             child: ShaderMask(
               blendMode: BlendMode.srcIn,
@@ -24,7 +25,7 @@ class Body extends StatelessWidget {
               style: TextStyle(
               fontFamily: 'Libre Baskerville',
               fontWeight: FontWeight.bold,
-              fontSize: 55.0,
+              fontSize: 50.0,
               foreground: Paint()
                   ..style = PaintingStyle.fill
                   ..color = Colors.black
@@ -34,12 +35,12 @@ class Body extends StatelessWidget {
           ),
           ),
           Container(
-            padding: const EdgeInsets.fromLTRB(20.0, 0, 20.0, 10.0),
+            padding: const EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 10.0),
             margin: const EdgeInsets.all(10.0),
-            child: Image.asset('assets/images/welcomeimage.png'),
+            child: Image.asset('assets/images/welcomeimage2.png'),
           ),
           Container(
-            padding: const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 0.0),
+            padding: const EdgeInsets.fromLTRB(20.0, 50.0, 20.0, 0.0),
             margin: const EdgeInsets.all(10.0),
             child: OutlinedButton(
               onPressed: () {
@@ -54,7 +55,7 @@ class Body extends StatelessWidget {
               },
               child: const Text('Sign In'),
               style: OutlinedButton.styleFrom(
-                minimumSize: const Size(240,70),
+                minimumSize: const Size(220,70),
                   backgroundColor: Colors.white54,
                   primary: Colors.deepOrangeAccent[700],
                   side: const BorderSide(color: Colors.deepOrangeAccent),
@@ -81,7 +82,7 @@ class Body extends StatelessWidget {
               child: const Text('Sign Up'),
               style: OutlinedButton.styleFrom(
                   backgroundColor: Colors.white54,
-                  minimumSize: const Size(240,70),
+                  minimumSize: const Size(220,70),
                   primary: Colors.deepOrangeAccent[700],
                   side: const BorderSide(color: Colors.deepOrangeAccent),
                   shape: RoundedRectangleBorder(

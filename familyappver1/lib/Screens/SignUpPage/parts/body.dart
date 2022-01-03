@@ -134,7 +134,7 @@ class _SignUpState extends State<Body> {
                             'Full Name': _fName,
                             'email': _email,
                             'password': _password,
-                            'FamilyID': null,
+                            'FamilyId': null,
                             'Latitude': null,
                             'Longitude': null,
                             'Last_Active_Time': null,

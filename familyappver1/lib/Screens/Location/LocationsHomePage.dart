@@ -15,6 +15,7 @@ class Locations extends StatefulWidget{
   _LocationsState createState() => _LocationsState();
 }
 class _LocationsState extends State<Locations> {
+  String famId='';
   Set<Marker> _marker = {};
   LatLng iniLoc = LatLng(23.815521706161224, 90.42551504825647);
   Location _locationTracker = Location();
@@ -26,6 +27,7 @@ class _LocationsState extends State<Locations> {
     super.initState();
     setCustomMarker();
     updateLocation();
+    getFamilyId();
   }
 
   void setCustomMarker() async {
@@ -70,7 +72,9 @@ class _LocationsState extends State<Locations> {
               ),
               SpeedDialChild(
                   child: Icon(Icons.account_circle_rounded),
-                  label: 'Family Member #1 Location'
+                  label: 'Family Member #1 Location',
+                  onTap: (){
+                  }
               ),
             ],
           ),
@@ -108,5 +112,24 @@ class _LocationsState extends State<Locations> {
       'Latitude': location.latitude,
       'Longitude': location.longitude,
     });
+  }
+
+  Future<void> getFamilyId() async {
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    final User? user = auth.currentUser;
+    final uid = user!.uid;
+    String famiId='';
+    try{
+        famiId= await FirebaseFirestore.instance
+          .collection('users')
+          .doc(uid)
+          .get()
+          .then((value) {
+          return value.data()!['FamilyId'];
+      });
+    } catch (e) {
+      print(e);
+    }
+    setState(()=> famId=famiId );
   }
 }

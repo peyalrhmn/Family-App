@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:familyappver1/widgets/shadowContainer.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 
 class CreateGroup extends StatefulWidget {
@@ -11,12 +12,6 @@ class CreateGroup extends StatefulWidget {
 
 class _CreateGroupState extends State<CreateGroup> {
   final FirebaseAuth auth = FirebaseAuth.instance;
-
-  // void inputData() {
-  //   final User? user = auth.currentUser;
-  //   final uid = user!.uid;
-  //   // here you write the codes to input the data into firestore
-  // }
   TextEditingController _groupNameController = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -43,9 +38,10 @@ class _CreateGroupState extends State<CreateGroup> {
                     ),
                   ),
                   SizedBox(
-                    height: 20.0,
+                    height: 40.0,
                   ),
                   RaisedButton(
+                    color: Colors.blue,
                     child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 80),
                       child: Text(
@@ -58,24 +54,34 @@ class _CreateGroupState extends State<CreateGroup> {
                       ),
                     ),
                     onPressed: () async {
+                      FocusScope.of(context).unfocus();
                       try{
                         final User? user = auth.currentUser;
                         final uid = user!.uid;
-                        List<String> members= [];
-                        members.add(uid);
-                        DocumentReference _docRef=await FirebaseFirestore.instance.collection("families").add({
-                          'Name': _groupNameController.text,
-                          'creator': uid,
-                          'members': members,
-                          'Created At': Timestamp.now(),
-                        });
-                         await FirebaseFirestore.instance.collection("users").doc(uid).update({
-                           'FamilyId': _docRef.id,
-                         });
-                         Scaffold.of(context).showSnackBar(new SnackBar(content: new Text("Family Created"),));
-
+                        var famIdChecker= await FirebaseFirestore.instance.collection('users').doc(uid).get().then((value) {return value.data()!['FamilyId'];});
+                        if(famIdChecker==null) {
+                          List<String> members = [];
+                          members.add(uid);
+                          DocumentReference _docRef = await FirebaseFirestore
+                              .instance.collection("families").add({
+                            'Name': _groupNameController.text,
+                            'creator': uid,
+                            'members': members,
+                            'Created At': Timestamp.now(),
+                          });
+                          await FirebaseFirestore.instance.collection("users")
+                              .doc(uid)
+                              .update({
+                            'FamilyId': _docRef.id,
+                          });
+                          Fluttertoast.showToast(msg: "Family Group Created",);
+                        }
+                        else{
+                          Fluttertoast.showToast(msg: "You are already in a Family Group");
+                        }
                       } catch (e){
                         print(e);
+                        Fluttertoast.showToast(msg: e.toString());
                       }
                     },
                   ),

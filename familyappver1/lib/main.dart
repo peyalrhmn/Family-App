@@ -7,6 +7,7 @@ import 'package:familyappver1/Screens/SignInPage/mainsigninpage.dart';
 import 'package:familyappver1/Screens/SignUpPage/mainsignuppage.dart';
 import 'package:familyappver1/constants.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 
 void main() async {

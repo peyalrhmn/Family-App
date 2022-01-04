@@ -7,14 +7,15 @@ import 'package:familyappver1/Screens/SignUpPage/mainsignuppage.dart';
 import 'package:familyappver1/Screens/MiscFiles/resetpassword.dart';
 import 'package:familyappver1/Screens/WelcomePage/mainwelcomepage.dart';
 import 'package:familyappver1/Screens/LandingPage/main.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 
-class Body extends StatelessWidget{
-//   @override
-//   _SignInState createState() => _SignInState();
-// }
-//
-// class _SignInState extends State<Body> {
+class Body extends StatefulWidget{
+  @override
+  _SignInState createState() => _SignInState();
+}
+
+class _SignInState extends State<Body> {
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -122,17 +123,16 @@ class Body extends StatelessWidget{
                     elevation: 5.0,
                     child: GestureDetector(
                       onTap: () {
+                        FocusScope.of(context).unfocus(); // to hide keybaord and make change screen a bit fast
                         try {
                           context.read<AuthenticationService>().signIn(
                               email: emailController.text, password: passController.text);
                           Navigator.pushReplacement(
                               context, MaterialPageRoute(builder: (_) => MyApp()));
-
-                        }on Exception catch(ex)
-                        {
+                        }on Exception catch(ex) {
                           print("Error!");
+                          Fluttertoast.showToast(msg: ex.toString());
                         }
-                        FocusScope.of(context).unfocus(); // to hide keybaord and make change screen a bit fast
                         },
                       child: const Center(
                         child: Text(

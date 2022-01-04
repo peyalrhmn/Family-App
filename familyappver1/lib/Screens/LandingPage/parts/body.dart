@@ -49,6 +49,7 @@ import 'package:familyappver1/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 
 class LandingPage extends StatefulWidget{
@@ -134,6 +135,7 @@ class _LandingPageState extends State<LandingPage> {
             label: 'Logout',
             onTap: (){
               context.read<AuthenticationService>().signOut();
+              Fluttertoast.showToast(msg: "Signed Out");
               Navigator.pushReplacement(
                   context, MaterialPageRoute(builder: (_) => MyApp()));
             },

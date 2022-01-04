@@ -30,6 +30,8 @@ class _LocationsState extends State<Locations> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance!
+        .addPostFrameCallback((_) => showDialogAlert(context));
     setCustomMarker();
     updateLocation();
     getFamilyId();
@@ -149,7 +151,6 @@ class _LocationsState extends State<Locations> {
     }
     setState(()=> famId=famiId );
     print('fAMILY id:');
-    print('fAMILY id:');
     print(famId);
     getFamilyMembersId();
   }
@@ -168,9 +169,6 @@ class _LocationsState extends State<Locations> {
     }catch (e){
       print(e);
     }
-    print('fAMILY MEMBERS:');
-    print('fAMILY MEMBERS:');
-    print('fAMILY MEMBERS:');
     print('fAMILY MEMBERS:');
     print(famMembersId);
     setState(() async {
@@ -205,34 +203,31 @@ class _LocationsState extends State<Locations> {
     });
   }
 
-  Future<void> getMembersLocation() async {
-    // List<MembersLocation> obj=[];
-    double? lat;
-    try{
-      for(int i=0;i<famMembersId.length;i++) {
-        await FirebaseFirestore.instance
-            .collection('users')
-            .doc(famMembersId[i])
-            .get()
-            .then((value) {
-              // obj[i].fName= value.data()!['Full Name'];
-              // obj[i].lat= value.data()!['Latitude'];
-              // obj[i].long= value.data()!['Longitude'];
-              lat=value.data()!['Latitude'];
-        });
-      }
-    }catch (e){
-      print(e);
-    }
-    print('Are u READY:');
-    print('Are u READY:');
-    print('Are u READY:');
-    print('Are u READY:');
-    print(lat);
-    // setState(()=>obj1=obj);
-    // print('I am here:');
-    // print(obj[0].fName);
-  }
+  // Future<void> getMembersLocation() async {
+  //   // List<MembersLocation> obj=[];
+  //   double? lat;
+  //   try{
+  //     for(int i=0;i<famMembersId.length;i++) {
+  //       await FirebaseFirestore.instance
+  //           .collection('users')
+  //           .doc(famMembersId[i])
+  //           .get()
+  //           .then((value) {
+  //             // obj[i].fName= value.data()!['Full Name'];
+  //             // obj[i].lat= value.data()!['Latitude'];
+  //             // obj[i].long= value.data()!['Longitude'];
+  //             lat=value.data()!['Latitude'];
+  //       });
+  //     }
+  //   }catch (e){
+  //     print(e);
+  //   }
+  //   print('Are u READY:');
+  //   print(lat);
+  //   // setState(()=>obj1=obj);
+  //   // print('I am here:');
+  //   // print(obj[0].fName);
+  // }  // useless function wanted to store location in a model class didnt work!
 
   void getMemberOneLocation() async {
     var currentTime= DateTime.now();
@@ -308,6 +303,33 @@ class _LocationsState extends State<Locations> {
         ),
       );
     });
+  }
+
+  showDialogAlert(BuildContext context) {
+    return showDialog(context: context, builder: (context){
+      return AlertDialog(
+        title: Text("Allow access to device's location"),
+        actions: <Widget>[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              MaterialButton(
+                elevation: 3.0,
+                color: Colors.blue,
+                child: Text('OK'),
+                onPressed: ()=>someStupidFunction(),
+              ),
+            ],
+          )
+        ],
+      );
+    });
+  }
+
+  someStupidFunction() {
+    getCurrentLocation();
+    //Navigator.pop(context); for some reason causes the locations screen to clsoe!
+    Navigator.of(context, rootNavigator: true).pop('dialog');
   }
 }
 

@@ -43,8 +43,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:familyappver1/Authentication/authentication_services.dart';
 import 'package:familyappver1/Screens/CreateFamily/createFamily.dart';
+import 'package:familyappver1/Screens/Dochub/firstpage.dart';
 import 'package:familyappver1/Screens/JoinFamily/joinFamily.dart';
 import 'package:familyappver1/Screens/Location/LocationsHomePage.dart';
+import 'package:familyappver1/Screens/Todos/todos.dart';
 import 'package:familyappver1/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -107,11 +109,17 @@ class _LandingPageState extends State<LandingPage> {
       children: [
         SpeedDialChild(
           child: Icon(Icons.phone_in_talk_sharp),
-          label: 'Call Police',
+          label: 'Doc Hub',
+          onTap: ()=> {
+          Navigator.push(context, MaterialPageRoute(builder: (context){return FirstPage();},))
+          },
         ),
         SpeedDialChild(
             child: Icon(Icons.wc_rounded),
-            label: 'Notify Family',
+            label: 'Todos',
+            onTap: ()=>{
+              Navigator.push(context, MaterialPageRoute(builder: (context){return Todo();},))
+            }
         ),
         SpeedDialChild(
           child: Icon(Icons.family_restroom_outlined),

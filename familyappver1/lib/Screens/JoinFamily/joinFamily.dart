@@ -10,6 +10,7 @@ class JoinGroup extends StatefulWidget {
 }
 
 class _JoinGroupState extends State<JoinGroup> {
+  var fId;
   final FirebaseAuth auth = FirebaseAuth.instance;
   TextEditingController _groupIdController = TextEditingController();
   @override
@@ -58,6 +59,7 @@ class _JoinGroupState extends State<JoinGroup> {
                         final User? user = auth.currentUser;
                         final uid = user!.uid;
                         var famIdChecker= await FirebaseFirestore.instance.collection('users').doc(uid).get().then((value) {return value.data()!['FamilyId'];});
+                        fId=famIdChecker;
                         if(famIdChecker==null) {
                           List<String> members = [];
                           members.add(uid);
@@ -77,7 +79,16 @@ class _JoinGroupState extends State<JoinGroup> {
                               msg: "Family Joined Successfully");
                         }
                         else{
+                          String name=await FirebaseFirestore.instance
+                              .collection('families')
+                              .doc(fId)
+                              .get()
+                              .then((value) {
+                            return value.data()!['Name'];
+                          });
                           Fluttertoast.showToast(msg: "You are already in a Family Group");
+                          Fluttertoast.showToast(msg: "Group Name: "+name,
+                              toastLength: Toast.LENGTH_LONG);
                         }
                       } catch (e) {
                         print(e);

@@ -11,6 +11,7 @@ class CreateGroup extends StatefulWidget {
 }
 
 class _CreateGroupState extends State<CreateGroup> {
+  var fId;
   final FirebaseAuth auth = FirebaseAuth.instance;
   TextEditingController _groupNameController = TextEditingController();
   @override
@@ -59,6 +60,7 @@ class _CreateGroupState extends State<CreateGroup> {
                         final User? user = auth.currentUser;
                         final uid = user!.uid;
                         var famIdChecker= await FirebaseFirestore.instance.collection('users').doc(uid).get().then((value) {return value.data()!['FamilyId'];});
+                        fId=famIdChecker;
                         if(famIdChecker==null) {
                           List<String> members = [];
                           members.add(uid);
@@ -77,7 +79,16 @@ class _CreateGroupState extends State<CreateGroup> {
                           Fluttertoast.showToast(msg: "Family Group Created",);
                         }
                         else{
+                          String name=await FirebaseFirestore.instance
+                              .collection('families')
+                              .doc(fId)
+                              .get()
+                              .then((value) {
+                            return value.data()!['Name'];
+                          });
                           Fluttertoast.showToast(msg: "You are already in a Family Group");
+                          Fluttertoast.showToast(msg: "Group Name: "+name,
+                              toastLength: Toast.LENGTH_LONG);
                         }
                       } catch (e){
                         print(e);

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:familyappver1/Screens/SignInPage/mainsigninpage.dart';
-import 'package:familyappver1/Screens/SignUpPage/parts/body.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class ResetPasswordMainFunc extends StatelessWidget {
   @override
@@ -12,6 +11,8 @@ class ResetPasswordMainFunc extends StatelessWidget {
 }
 
 class ResetPassBody extends StatelessWidget {
+  String email = '';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,7 +38,7 @@ class ResetPassBody extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(50.0, 20.0, 50.0, 0.0),
             child: Column(
               children: <Widget>[
-                const TextField(
+                TextFormField(
                   decoration: InputDecoration(
                     labelText: 'Email',
                     labelStyle: TextStyle(
@@ -45,50 +46,7 @@ class ResetPassBody extends StatelessWidget {
                       fontWeight: FontWeight.normal,
                       fontSize: 15.0,
                       color: Colors.grey,
-                    ),
-                  ),
-                ),
-                const TextField(
-                  decoration: InputDecoration(
-                    labelText: 'Phone Number',
-                    labelStyle: TextStyle(
-                      fontFamily: 'Roboto',
-                      fontWeight: FontWeight.normal,
-                      fontSize: 15.0,
-                      color: Colors.grey,
-                    ),
-                  ),
-                ),
-                const TextField(
-                  decoration: InputDecoration(
-                    labelText: "Guardian 1's Phone Number",
-                    labelStyle: TextStyle(
-                      fontFamily: 'Roboto',
-                      fontWeight: FontWeight.normal,
-                      fontSize: 15.0,
-                      color: Colors.grey,
-                    ),
-                  ),
-                ),
-                const TextField(
-                  decoration: InputDecoration(
-                    labelText: "New Password",
-                    labelStyle: TextStyle(
-                      fontFamily: 'Roboto',
-                      fontWeight: FontWeight.normal,
-                      fontSize: 15.0,
-                      color: Colors.grey,
-                    ),
-                  ),
-                ),
-                const TextField(
-                  decoration: InputDecoration(
-                    labelText: "Confirm New Password",
-                    labelStyle: TextStyle(
-                      fontFamily: 'Roboto',
-                      fontWeight: FontWeight.normal,
-                      fontSize: 15.0,
-                      color: Colors.grey,
+
                     ),
                   ),
                 ),
@@ -102,7 +60,9 @@ class ResetPassBody extends StatelessWidget {
                     color: Colors.blueGrey[400],
                     elevation: 5.0,
                     child: GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+
+                      },
                       child: const Center(
                         child: Text(
                           'Reset Password!',

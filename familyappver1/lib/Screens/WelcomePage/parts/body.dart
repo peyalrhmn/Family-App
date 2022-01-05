@@ -21,7 +21,7 @@ class Body extends StatelessWidget {
                 end: Alignment.bottomRight,
                 colors: [Colors.red, Colors.deepOrangeAccent],
               ).createShader(rect),
-              child: Text('FamilyApp',
+              child: Text('Family App',
               style: TextStyle(
               fontFamily: 'Libre Baskerville',
               fontWeight: FontWeight.bold,

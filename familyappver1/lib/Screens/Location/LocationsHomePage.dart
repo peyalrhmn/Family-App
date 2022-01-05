@@ -15,6 +15,7 @@ class Locations extends StatefulWidget{
   @override
   _LocationsState createState() => _LocationsState();
 }
+
 class _LocationsState extends State<Locations> {
   List<String> famMembersId=[];
   List<MembersLocation> obj1=[];

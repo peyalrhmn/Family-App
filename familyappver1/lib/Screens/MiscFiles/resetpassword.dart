@@ -1,3 +1,4 @@
+import 'package:familyappver1/Screens/SignInPage/mainsigninpage.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -11,6 +12,8 @@ class ResetPasswordMainFunc extends StatelessWidget {
 }
 
 class ResetPassBody extends StatelessWidget {
+
+  TextEditingController controller = TextEditingController();
   String email = '';
 
   @override
@@ -46,34 +49,29 @@ class ResetPassBody extends StatelessWidget {
                       fontWeight: FontWeight.normal,
                       fontSize: 15.0,
                       color: Colors.grey,
-
                     ),
                   ),
                 ),
 
-                Container(
-                  padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
-                  height: 70.0,
-                  child: Material(
-                    borderRadius: BorderRadius.circular(20.0),
-                    shadowColor: Colors.deepOrangeAccent,
-                    color: Colors.blueGrey[400],
-                    elevation: 5.0,
-                    child: GestureDetector(
-                      onTap: () {
+                SizedBox(
+                  height: 50,
+                ),
 
-                      },
-                      child: const Center(
-                        child: Text(
-                          'Reset Password!',
-                          style: TextStyle(
-                            color: Colors.white70,
-                            fontFamily: 'Roboto',
-                            fontWeight: FontWeight.bold,
-                            fontSize: 17.0,
-                          ),
-                        ),
-                      ),
+                ElevatedButton(
+                  onPressed: () async  {
+                    await FirebaseAuth.instance
+                        .sendPasswordResetEmail(email: controller.text)
+                        .then((value) =>{
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context)=>WelcomeSignInPage()))
+                    });
+                  },
+                  child: Text("Reset Password",
+                    style: TextStyle(
+                      color: Colors.white70,
+                      fontFamily: 'Roboto',
+                      fontWeight: FontWeight.bold,
+                      fontSize: 17.0,
                     ),
                   ),
                 ),

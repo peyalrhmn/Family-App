@@ -42,21 +42,21 @@ class InfoView extends State<Info>{
 
 
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xfffeccc1),
       body: Stack(
         children: <Widget>[
-
           FutureBuilder(
-              future: _fetch(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState != ConnectionState.done) {
-                  return const Text("Loading data...Please wait");
-                }
-                return const Text("");
-              },
+            future: _fetch(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState != ConnectionState.done) {
+                return const Text("Loading data...Please wait");
+              }
+              return const Text("");
+            },
           ),
           ListView(
             padding: const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 0.0),
@@ -67,6 +67,7 @@ class InfoView extends State<Info>{
                 child: Image.asset('assets/images/myprofile.png'),
               ),
               _infoCell(title: "My FamApp Profile", value: ""),
+
               const SizedBox(
                 height: 20,
               ),
@@ -192,6 +193,8 @@ class InfoView extends State<Info>{
           .get()
           .then((ds) {
 
+        setState(() {});
+
 
         myEmail = ds.data()!['email'];
 
@@ -241,15 +244,13 @@ class InfoView extends State<Info>{
         Text(
           value!,
           style: const TextStyle(
-            fontFamily: 'Libre Baskerville',
-            fontSize: 19.0,
-            fontWeight: FontWeight.w100,
-            color: Colors.blueGrey
+              fontFamily: 'Libre Baskerville',
+              fontSize: 19.0,
+              fontWeight: FontWeight.w100,
+              color: Colors.blueGrey
           ),
         )
       ],
     );
   }
-
-
 }

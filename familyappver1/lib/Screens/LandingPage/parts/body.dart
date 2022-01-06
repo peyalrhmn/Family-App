@@ -1,45 +1,3 @@
-// import 'package:flutter/material.dart';
-//
-// class Body extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       backgroundColor: const Color(0xFFfdc7aa),
-//       body: Column(
-//         children: <Widget>[
-//           Container(
-//             padding: const EdgeInsets.fromLTRB(20.0, 70.0, 20.0, 0.0),
-//             margin: const EdgeInsets.all(10.0),
-//             child: ShaderMask(
-//               blendMode: BlendMode.srcIn,
-//               shaderCallback: (rect) => const LinearGradient(
-//                 begin: Alignment.topLeft,
-//                 end: Alignment.bottomRight,
-//                 colors: [Colors.red, Colors.deepOrangeAccent],
-//               ).createShader(rect),
-//               child: Text('FamilyApp',
-//               style: TextStyle(
-//               fontFamily: 'Libre Baskerville',
-//               fontWeight: FontWeight.bold,
-//               fontSize: 55.0,
-//               foreground: Paint()
-//                   ..style = PaintingStyle.fill
-//                   ..color = Colors.black
-//                   ..strokeWidth = 3.0
-//             ),
-//             ),
-//           ),
-//           ),
-//           Container(
-//             padding: const EdgeInsets.fromLTRB(20.0, 0, 20.0, 10.0),
-//             margin: const EdgeInsets.all(10.0),
-//             child: Image.asset('assets/images/welcomeimage.png'),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:familyappver1/Authentication/authentication_services.dart';
 import 'package:familyappver1/Screens/AlertPage/main.dart';
@@ -95,7 +53,7 @@ class _LandingPageState extends State<LandingPage> {
                   style: TextStyle(
                       fontFamily: 'Libre Baskerville',
                       fontWeight: FontWeight.bold,
-                      fontSize: 50.0,
+                      fontSize: 45.0,
                       foreground: Paint()
                         ..style = PaintingStyle.fill
                         ..color = Colors.black
@@ -115,11 +73,11 @@ class _LandingPageState extends State<LandingPage> {
                 children: <Widget>[
                   const Text("Welcome, ",
                     style: TextStyle(
-                      fontFamily: 'Libre Baskerville',
-                      fontSize: 21.0,
-                      fontWeight: FontWeight.w100,
-                      color: Colors.blueGrey
-                  ),
+                        fontFamily: 'Libre Baskerville',
+                        fontSize: 21.0,
+                        fontWeight: FontWeight.w100,
+                        color: Colors.blueGrey
+                    ),
                   ),
 
                   _infoCell(title: "", value: myEmail),
@@ -161,197 +119,197 @@ class _LandingPageState extends State<LandingPage> {
 
   @override
   Widget build(BuildContext context) {
-  var size = MediaQuery.of(context).size;
-  return Scaffold(
-    backgroundColor:  const Color(0xFFFFFFFF),
-    body: ListView(
-      children: [
-        Cont(),
-        FutureBuilder(
-          future: _fetch(),
-          builder: (context, snapshot) {
-            return const Text("");
-          },
-        ),
-        IconButton(
-          icon: Image.asset('assets/images/alert.png'),
-          iconSize: 80,
-          onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context){return LandingBodyAlert();},));
-          },
-        ),
-        Container(
-          padding: EdgeInsets.fromLTRB(0, 0, 0, 50),
-          alignment: Alignment.center,
-          child: const Text('Alert System',
-            style: TextStyle(
-                fontFamily: 'Libre Baskerville',
-                fontSize: 21.0,
-                color: Colors.black54
-            ),
-          )
-        ),
+    var size = MediaQuery.of(context).size;
+    return Scaffold(
+      backgroundColor:  const Color(0xFFFFFFFF),
+      body: ListView(
+        children: [
+          Cont(),
+          FutureBuilder(
+            future: _fetch(),
+            builder: (context, snapshot) {
+              return const Text("");
+            },
+          ),
+          IconButton(
+            icon: Image.asset('assets/images/alert.png'),
+            iconSize: 80,
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context){return LandingBodyAlert();},));
+            },
+          ),
+          Container(
+              padding: EdgeInsets.fromLTRB(0, 0, 0, 50),
+              alignment: Alignment.center,
+              child: const Text('Alert System',
+                style: TextStyle(
+                    fontFamily: 'Libre Baskerville',
+                    fontSize: 21.0,
+                    color: Colors.black54
+                ),
+              )
+          ),
 
-        IconButton(
-          icon: Image.asset('assets/images/myprof.png'),
-          iconSize: 80,
-          onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context){return Info();},));
-          },
-        ),
-        Container(
-            padding: EdgeInsets.fromLTRB(0, 0, 0, 50),
-            alignment: Alignment.center,
-            child: const Text('My Profile',
-              style: TextStyle(
-                  fontFamily: 'Libre Baskerville',
-                  fontSize: 21.0,
-                  color: Colors.black54
-              ),
-            )
-        ),
+          IconButton(
+            icon: Image.asset('assets/images/myprof.png'),
+            iconSize: 80,
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context){return Info();},));
+            },
+          ),
+          Container(
+              padding: EdgeInsets.fromLTRB(0, 0, 0, 50),
+              alignment: Alignment.center,
+              child: const Text('My Profile',
+                style: TextStyle(
+                    fontFamily: 'Libre Baskerville',
+                    fontSize: 21.0,
+                    color: Colors.black54
+                ),
+              )
+          ),
 
-        IconButton(
-          icon: Image.asset('assets/images/loc.png'),
-          iconSize: 80,
-          onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context){return Locations();},));
-          },
-        ),
-        Container(
-            padding: EdgeInsets.fromLTRB(0, 0, 0, 50),
-            alignment: Alignment.center,
-            child: const Text('Location',
-              style: TextStyle(
-                  fontFamily: 'Libre Baskerville',
-                  fontSize: 21.0,
-                  color: Colors.black54
-              ),
-            )
-        ),
+          IconButton(
+            icon: Image.asset('assets/images/loc.png'),
+            iconSize: 80,
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context){return Locations();},));
+            },
+          ),
+          Container(
+              padding: EdgeInsets.fromLTRB(0, 0, 0, 50),
+              alignment: Alignment.center,
+              child: const Text('Location',
+                style: TextStyle(
+                    fontFamily: 'Libre Baskerville',
+                    fontSize: 21.0,
+                    color: Colors.black54
+                ),
+              )
+          ),
 
-        IconButton(
-          icon: Image.asset('assets/images/creatg.png'),
-          iconSize: 80,
-          onPressed: () => _goToCreate(context),
-        ),
-        Container(
-            padding: EdgeInsets.fromLTRB(0, 0, 0, 50),
-            alignment: Alignment.center,
-            child: const Text('Create Group',
-              style: TextStyle(
-                  fontFamily: 'Libre Baskerville',
-                  fontSize: 21.0,
-                  color: Colors.black54
-              ),
-            )
-        ),
+          IconButton(
+            icon: Image.asset('assets/images/creatg.png'),
+            iconSize: 80,
+            onPressed: () => _goToCreate(context),
+          ),
+          Container(
+              padding: EdgeInsets.fromLTRB(0, 0, 0, 50),
+              alignment: Alignment.center,
+              child: const Text('Create Group',
+                style: TextStyle(
+                    fontFamily: 'Libre Baskerville',
+                    fontSize: 21.0,
+                    color: Colors.black54
+                ),
+              )
+          ),
 
-        IconButton(
-          icon: Image.asset('assets/images/joing.png'),
-          iconSize: 80,
-          onPressed: () => _goToJoin(context),
-        ),
-        Container(
-            padding: EdgeInsets.fromLTRB(0, 0, 0, 50),
-            alignment: Alignment.center,
-            child: const Text('Join Group',
-              style: TextStyle(
-                  fontFamily: 'Libre Baskerville',
-                  fontSize: 21.0,
-                  color: Colors.black54
-              ),
-            )
-        ),
+          IconButton(
+            icon: Image.asset('assets/images/joing.png'),
+            iconSize: 80,
+            onPressed: () => _goToJoin(context),
+          ),
+          Container(
+              padding: EdgeInsets.fromLTRB(0, 0, 0, 50),
+              alignment: Alignment.center,
+              child: const Text('Join Group',
+                style: TextStyle(
+                    fontFamily: 'Libre Baskerville',
+                    fontSize: 21.0,
+                    color: Colors.black54
+                ),
+              )
+          ),
 
-        IconButton(
-          icon: Image.asset('assets/images/chatlog.png'),
-          iconSize: 80,
-          onPressed: () {},
-        ),
-        Container(
-            padding: EdgeInsets.fromLTRB(0, 0, 0, 50),
-            alignment: Alignment.center,
-            child: const Text('Chatroom',
-              style: TextStyle(
-                  fontFamily: 'Libre Baskerville',
-                  fontSize: 21.0,
-                  color: Colors.black54
-              ),
-            )
-        ),
+          IconButton(
+            icon: Image.asset('assets/images/chatlog.png'),
+            iconSize: 80,
+            onPressed: () {},
+          ),
+          Container(
+              padding: EdgeInsets.fromLTRB(0, 0, 0, 50),
+              alignment: Alignment.center,
+              child: const Text('Chatroom',
+                style: TextStyle(
+                    fontFamily: 'Libre Baskerville',
+                    fontSize: 21.0,
+                    color: Colors.black54
+                ),
+              )
+          ),
 
-        IconButton(
-          icon: Image.asset('assets/images/notes.png'),
-          iconSize: 80,
-          onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context){return Todo();},));
-          },
-        ),
-        Container(
-            padding: EdgeInsets.fromLTRB(0, 0, 0, 50),
-            alignment: Alignment.center,
-            child: const Text('To Do & Notes',
-              style: TextStyle(
-                  fontFamily: 'Libre Baskerville',
-                  fontSize: 21.0,
-                  color: Colors.black54
-              ),
-            )
-        ),
+          IconButton(
+            icon: Image.asset('assets/images/notes.png'),
+            iconSize: 80,
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context){return Todo();},));
+            },
+          ),
+          Container(
+              padding: EdgeInsets.fromLTRB(0, 0, 0, 50),
+              alignment: Alignment.center,
+              child: const Text('To Do & Notes',
+                style: TextStyle(
+                    fontFamily: 'Libre Baskerville',
+                    fontSize: 21.0,
+                    color: Colors.black54
+                ),
+              )
+          ),
 
-        IconButton(
-          icon: Image.asset('assets/images/docstor.png'),
-          iconSize: 80,
-          onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context){return FirstPage();},));
-          },
-        ),
-        Container(
-            padding: EdgeInsets.fromLTRB(0, 0, 0, 50),
-            alignment: Alignment.center,
-            child: const Text('Doc Storage',
-              style: TextStyle(
-                  fontFamily: 'Libre Baskerville',
-                  fontSize: 21.0,
-                  color: Colors.black54
-              ),
-            )
-        ),
+          IconButton(
+            icon: Image.asset('assets/images/docstor.png'),
+            iconSize: 80,
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context){return FirstPage();},));
+            },
+          ),
+          Container(
+              padding: EdgeInsets.fromLTRB(0, 0, 0, 50),
+              alignment: Alignment.center,
+              child: const Text('Doc Storage',
+                style: TextStyle(
+                    fontFamily: 'Libre Baskerville',
+                    fontSize: 21.0,
+                    color: Colors.black54
+                ),
+              )
+          ),
 
 
-      ],
-    ),
-    floatingActionButton: SpeedDial(
-      animatedIcon: AnimatedIcons.menu_close,
-      children: [
-        SpeedDialChild(
-          child: Icon(Icons.add_location_alt_outlined),
-          label: 'Family Locations',
-          onTap: (){
-            Navigator.push(context, MaterialPageRoute(builder: (context){return Locations();},));
-          },
-        ),
-        SpeedDialChild(
-          child: Icon(Icons.circle_notifications_rounded),
-          label: 'Emergency Alert ',
-          onTap: (){
-            Navigator.push(context, MaterialPageRoute(builder: (context){return LandingBodyAlert();},));
-          },
-        ),
-        SpeedDialChild(
-          child: Icon(Icons.logout),
-          label: 'Logout',
-          onTap: (){
-            context.read<AuthenticationService>().signOut();
-            Fluttertoast.showToast(msg: "Signed Out");
-            Navigator.pushReplacement(
-                context, MaterialPageRoute(builder: (_) => MyApp()));
-          },
-        ),
-      ],
-    ),
-  );
+        ],
+      ),
+      floatingActionButton: SpeedDial(
+        animatedIcon: AnimatedIcons.menu_close,
+        children: [
+          SpeedDialChild(
+            child: Icon(Icons.add_location_alt_outlined),
+            label: 'Family Locations',
+            onTap: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context){return Locations();},));
+            },
+          ),
+          SpeedDialChild(
+            child: Icon(Icons.circle_notifications_rounded),
+            label: 'Emergency Alert ',
+            onTap: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context){return LandingBodyAlert();},));
+            },
+          ),
+          SpeedDialChild(
+            child: Icon(Icons.logout),
+            label: 'Logout',
+            onTap: (){
+              context.read<AuthenticationService>().signOut();
+              Fluttertoast.showToast(msg: "Signed Out");
+              Navigator.pushReplacement(
+                  context, MaterialPageRoute(builder: (_) => MyApp()));
+            },
+          ),
+        ],
+      ),
+    );
   }
 
   Future<void> updateLastActiveTime() async {
@@ -388,7 +346,7 @@ class _LandingPageState extends State<LandingPage> {
           .get()
           .then((ds) {
 
-
+        setState(() {});
         myEmail = ds.data()!['Full Name'];
 
 
@@ -402,7 +360,3 @@ class _LandingPageState extends State<LandingPage> {
     Fluttertoast.showToast(msg: "Sign In Successful");
   }
 }
-
-
-
-

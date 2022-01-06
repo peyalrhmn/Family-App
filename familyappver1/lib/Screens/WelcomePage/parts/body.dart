@@ -25,7 +25,7 @@ class Body extends StatelessWidget {
               style: TextStyle(
               fontFamily: 'Libre Baskerville',
               fontWeight: FontWeight.bold,
-              fontSize: 50.0,
+              fontSize: 45.0,
               foreground: Paint()
                   ..style = PaintingStyle.fill
                   ..color = Colors.black

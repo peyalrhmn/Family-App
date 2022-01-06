@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:familyappver1/Authentication/authentication_services.dart';
 import 'package:familyappver1/Screens/AlertPage/main.dart';
+import 'package:familyappver1/Screens/Chat/myhome.dart';
 import 'package:familyappver1/Screens/CreateFamily/createFamily.dart';
 import 'package:familyappver1/Screens/Dochub/firstpage.dart';
 import 'package:familyappver1/Screens/JoinFamily/joinFamily.dart';
@@ -225,7 +226,9 @@ class _LandingPageState extends State<LandingPage> {
           IconButton(
             icon: Image.asset('assets/images/chatlog.png'),
             iconSize: 80,
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context){return MyHome();},));
+            },
           ),
           Container(
               padding: EdgeInsets.fromLTRB(0, 0, 0, 50),

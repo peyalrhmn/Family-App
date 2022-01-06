@@ -65,10 +65,8 @@ class AlertBodyMain extends State<AlertBody>{
             onTap: ()
 
             async {
-
-              var SMSHolder = "999";
-              double LatHolder = 0.0;
-              double LonHolder = 0.0;
+              var SMSHolder = "999"; var nameHolder = "";
+              double LatHolder = 0.0; double LonHolder = 0.0;
 
               final firebaseUser = await FirebaseAuth.instance.currentUser!;
               await FirebaseFirestore.instance
@@ -79,17 +77,18 @@ class AlertBodyMain extends State<AlertBody>{
                 var PriCon = ds.data()!['_PriorityContactNumber'];
                 var LastLat = ds.data()!['Latitude'];
                 var LastLon = ds.data()!['Longitude'];
+                var Name = ds.data()!['_FirstName'];
                 SMSHolder = PriCon;
                 LatHolder = LastLat;
                 LonHolder = LastLon;
+                nameHolder = Name;
               }).catchError((e) {
                 print(e);
               });
-
-
               launch('sms:$SMSHolder?body='
                   'ALERT SYSTEM PRESSED'
-                  ' | My last recorded latitude and longitude co-ordinates were [$LatHolder] and [$LonHolder] respectively.');
+                  ' | My name is $nameHolder. My last recorded latitude and longitude co-ordinates'
+                  'were [$LatHolder] and [$LonHolder] respectively.');
             }, //message top priority contacts
           ),
         ],

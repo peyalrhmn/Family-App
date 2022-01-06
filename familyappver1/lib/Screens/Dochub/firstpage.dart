@@ -60,7 +60,8 @@ class _FirstPageState extends State<FirstPage> {
               getImage();
             },
             child: CircleAvatar(
-              radius: 80,
+              radius: 100,
+              backgroundColor: Colors.grey.shade500,
               backgroundImage: file == null
               ? AssetImage("")
               : FileImage(File(file!.path)) as ImageProvider,

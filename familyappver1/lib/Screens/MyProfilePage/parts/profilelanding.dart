@@ -1,7 +1,6 @@
 import 'package:familyappver1/Screens/MyProfilePage/parts/seeinfo.dart';
 import 'package:flutter/material.dart';
 
-
 import 'package:familyappver1/Authentication/authentication_services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
@@ -9,23 +8,16 @@ import 'package:provider/provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:familyappver1/widgets/shadowContainer.dart';
 
-
-
-class PageBody extends StatefulWidget{
+class PageBody extends StatefulWidget {
   @override
   BodyMain createState() => BodyMain();
 }
 
-
-
 class BodyMain extends State<PageBody> {
-
   final FirebaseAuth auth = FirebaseAuth.instance;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-
   var _FirstNameController = TextEditingController();
-
 
   String _FirstName = '';
   String _MiddleName = '';
@@ -48,7 +40,6 @@ class BodyMain extends State<PageBody> {
   String _PriorityContactName = '';
   String _PriorityContactRelation = '';
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,19 +47,18 @@ class BodyMain extends State<PageBody> {
       body: Container(
         child: ListView(
           children: <Widget>[
-
             Container(
               padding: const EdgeInsets.fromLTRB(10.0, 50.0, 10.0, 0.0),
               alignment: Alignment.topCenter,
               child: ShaderMask(
                 blendMode: BlendMode.srcIn,
-                shaderCallback: (rect) =>
-                    const LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                      colors: [Colors.deepPurple, Colors.purpleAccent],
-                    ).createShader(rect),
-                child: Text('Change MyProfile Credentials',
+                shaderCallback: (rect) => const LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [Colors.deepPurple, Colors.purpleAccent],
+                ).createShader(rect),
+                child: Text(
+                  'Change MyProfile Credentials',
                   style: TextStyle(
                       fontFamily: 'Roboto Regular',
                       fontWeight: FontWeight.bold,
@@ -76,17 +66,17 @@ class BodyMain extends State<PageBody> {
                       foreground: Paint()
                         ..style = PaintingStyle.fill
                         ..color = Colors.black
-                        ..strokeWidth = 3.0
-                  ),
+                        ..strokeWidth = 3.0),
                 ),
               ),
-            ),  // background and extras
+            ), // background and extras
 
             Container(
               padding: const EdgeInsets.fromLTRB(10.0, 50.0, 10.0, 0.0),
               margin: const EdgeInsets.all(10.0),
               alignment: Alignment.center,
-              child:  Text('- Essentials -',
+              child: Text(
+                '- Essentials -',
                 style: TextStyle(
                     fontFamily: 'Libre Baskerville',
                     fontWeight: FontWeight.bold,
@@ -94,10 +84,9 @@ class BodyMain extends State<PageBody> {
                     foreground: Paint()
                       ..style = PaintingStyle.fill
                       ..color = Colors.black
-                      ..strokeWidth = 3.0
-                ),
+                      ..strokeWidth = 3.0),
               ),
-            ),  // header for essentials
+            ), // header for essentials
 
             Container(
               padding: const EdgeInsets.fromLTRB(50.0, 5.0, 50.0, 0.0),
@@ -110,11 +99,13 @@ class BodyMain extends State<PageBody> {
                       });
                     },
                     controller: _FirstNameController,
-                    decoration: const InputDecoration(labelText: "Change your first name"),
-                    validator: (value){
-                      if(value!.isEmpty){
-                        return "Please enter correct name";}
-                      else{ return null;
+                    decoration: const InputDecoration(
+                        labelText: "Change your first name"),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return "Please enter correct name";
+                      } else {
+                        return null;
                       }
                     },
                   ),
@@ -124,8 +115,8 @@ class BodyMain extends State<PageBody> {
                         _MiddleName = val;
                       });
                     },
-                    decoration: const InputDecoration(labelText: "Change your middle name"
-                  ),
+                    decoration: const InputDecoration(
+                        labelText: "Change your middle name"),
                   ),
                   TextFormField(
                     onChanged: (val) {
@@ -133,13 +124,13 @@ class BodyMain extends State<PageBody> {
                         _LastName = val;
                       });
                     },
-                    decoration: const InputDecoration(labelText: "Change your last name"
-                  ),
-                    validator: (value){
-                      if(value!.isEmpty){
+                    decoration: const InputDecoration(
+                        labelText: "Change your last name"),
+                    validator: (value) {
+                      if (value!.isEmpty) {
                         return "Please enter correct name";
-                      }
-                      else{ return null;
+                      } else {
+                        return null;
                       }
                     },
                   ),
@@ -149,13 +140,13 @@ class BodyMain extends State<PageBody> {
                         _PhoneNumber = val;
                       });
                     },
-                    decoration: const InputDecoration(labelText: "Change your phone number"
-                    ),
-                    validator: (value){
-                      if(value!.isEmpty){
+                    decoration: const InputDecoration(
+                        labelText: "Change your phone number"),
+                    validator: (value) {
+                      if (value!.isEmpty) {
                         return "Please enter correct phone number";
-                      }
-                      else{ return null;
+                      } else {
+                        return null;
                       }
                     },
                   ),
@@ -165,13 +156,13 @@ class BodyMain extends State<PageBody> {
                         _Email = val;
                       });
                     },
-                    decoration: const InputDecoration(labelText: "Change your email"
-                     ),
-                    validator: (value){
-                      if(value!.isEmpty){
+                    decoration:
+                        const InputDecoration(labelText: "Change your email"),
+                    validator: (value) {
+                      if (value!.isEmpty) {
                         return "Please enter correct email";
-                      }
-                      else{ return null;
+                      } else {
+                        return null;
                       }
                     },
                   ),
@@ -181,13 +172,13 @@ class BodyMain extends State<PageBody> {
                         _Address = val;
                       });
                     },
-                    decoration: const InputDecoration(labelText: "Change your address"
-                  ),
-                    validator: (value){
-                      if(value!.isEmpty){
+                    decoration:
+                        const InputDecoration(labelText: "Change your address"),
+                    validator: (value) {
+                      if (value!.isEmpty) {
                         return "Please enter correct address";
-                      }
-                      else{ return null;
+                      } else {
+                        return null;
                       }
                     },
                   ),
@@ -197,13 +188,13 @@ class BodyMain extends State<PageBody> {
                         _BloodGroup = val;
                       });
                     },
-                    decoration: const InputDecoration(labelText: "Change your blood group"
-                  ),
-                    validator: (value){
-                      if(value!.isEmpty){
+                    decoration: const InputDecoration(
+                        labelText: "Change your blood group"),
+                    validator: (value) {
+                      if (value!.isEmpty) {
                         return "Please enter correct blood group";
-                      }
-                      else{ return null;
+                      } else {
+                        return null;
                       }
                     },
                   ),
@@ -215,7 +206,8 @@ class BodyMain extends State<PageBody> {
               padding: const EdgeInsets.fromLTRB(10.0, 50.0, 10.0, 0.0),
               margin: const EdgeInsets.all(10.0),
               alignment: Alignment.center,
-              child:  Text('- Official Information -',
+              child: Text(
+                '- Official Information -',
                 style: TextStyle(
                     fontFamily: 'Libre Baskerville',
                     fontWeight: FontWeight.bold,
@@ -223,10 +215,9 @@ class BodyMain extends State<PageBody> {
                     foreground: Paint()
                       ..style = PaintingStyle.fill
                       ..color = Colors.black
-                      ..strokeWidth = 3.0
-                ),
+                      ..strokeWidth = 3.0),
               ),
-            ),  // header for official info
+            ), // header for official info
 
             Container(
               padding: const EdgeInsets.fromLTRB(50.0, 5.0, 50.0, 0.0),
@@ -238,8 +229,8 @@ class BodyMain extends State<PageBody> {
                         _BirthCertificateNumber = val;
                       });
                     },
-                    decoration: const InputDecoration(labelText: "Change your Birth Certificate Number"
-                    ),
+                    decoration: const InputDecoration(
+                        labelText: "Change your Birth Certificate Number"),
                   ),
                   TextFormField(
                     onChanged: (val) {
@@ -247,8 +238,8 @@ class BodyMain extends State<PageBody> {
                         _PassportNumber = val;
                       });
                     },
-                    decoration: const InputDecoration(labelText: "Change your Passport Number"
-                  ),
+                    decoration: const InputDecoration(
+                        labelText: "Change your Passport Number"),
                   ),
                   TextFormField(
                     onChanged: (val) {
@@ -256,8 +247,8 @@ class BodyMain extends State<PageBody> {
                         _NationalIdentityNumber = val;
                       });
                     },
-                    decoration: const InputDecoration(labelText: "Change your National Identity Number"
-                  ),
+                    decoration: const InputDecoration(
+                        labelText: "Change your National Identity Number"),
                   ),
                 ],
               ),
@@ -267,7 +258,8 @@ class BodyMain extends State<PageBody> {
               padding: const EdgeInsets.fromLTRB(10.0, 50.0, 10.0, 0.0),
               margin: const EdgeInsets.all(10.0),
               alignment: Alignment.center,
-              child:  Text('- Priority Contact Setter -',
+              child: Text(
+                '- Priority Contact Setter -',
                 style: TextStyle(
                     fontFamily: 'Libre Baskerville',
                     fontWeight: FontWeight.bold,
@@ -275,11 +267,9 @@ class BodyMain extends State<PageBody> {
                     foreground: Paint()
                       ..style = PaintingStyle.fill
                       ..color = Colors.black
-                      ..strokeWidth = 3.0
-                ),
+                      ..strokeWidth = 3.0),
               ),
-            ),  // header for priority contact
-
+            ), // header for priority contact
 
             Container(
               padding: const EdgeInsets.fromLTRB(50.0, 5.0, 50.0, 0.0),
@@ -291,26 +281,26 @@ class BodyMain extends State<PageBody> {
                         _PriorityContactNumber = val;
                       });
                     },
-                    decoration: const InputDecoration(labelText: "Change your PC's number"
-                    ),
+                    decoration: const InputDecoration(
+                        labelText: "Change your PC's number"),
                   ),
                   TextFormField(
                     onChanged: (val) {
                       setState(() {
-                          _PriorityContactEmail = val;
+                        _PriorityContactEmail = val;
                       });
                     },
-                    decoration: const InputDecoration(labelText: "Change your PC's name"
-                  ),
+                    decoration: const InputDecoration(
+                        labelText: "Change your PC's name"),
                   ),
                   TextFormField(
                     onChanged: (val) {
                       setState(() {
-                         _PriorityContactName = val;
+                        _PriorityContactName = val;
                       });
                     },
-                    decoration: const InputDecoration(labelText: "Change your PC's email"
-                  ),
+                    decoration: const InputDecoration(
+                        labelText: "Change your PC's email"),
                   ),
                   TextFormField(
                     onChanged: (val) {
@@ -318,8 +308,8 @@ class BodyMain extends State<PageBody> {
                         _PriorityContactRelation = val;
                       });
                     },
-                    decoration: const InputDecoration(labelText: "Change your relationship status with PC"
-                  ),
+                    decoration: const InputDecoration(
+                        labelText: "Change your relationship status with PC"),
                   ),
                 ],
               ),
@@ -329,7 +319,8 @@ class BodyMain extends State<PageBody> {
               padding: const EdgeInsets.fromLTRB(10.0, 50.0, 10.0, 0.0),
               margin: const EdgeInsets.all(10.0),
               alignment: Alignment.center,
-              child:  Text('- Extra Notables -',
+              child: Text(
+                '- Extra Notables -',
                 style: TextStyle(
                     fontFamily: 'Libre Baskerville',
                     fontWeight: FontWeight.bold,
@@ -337,10 +328,9 @@ class BodyMain extends State<PageBody> {
                     foreground: Paint()
                       ..style = PaintingStyle.fill
                       ..color = Colors.black
-                      ..strokeWidth = 3.0
-                ),
+                      ..strokeWidth = 3.0),
               ),
-            ),  // header for extra notables
+            ), // header for extra notables
 
             Container(
               padding: const EdgeInsets.fromLTRB(50.0, 5.0, 50.0, 70.0),
@@ -352,8 +342,8 @@ class BodyMain extends State<PageBody> {
                         _SecurityQuestionAnswer = val;
                       });
                     },
-                    decoration: const InputDecoration(labelText: "Change your Security Question's answer"
-                    ),
+                    decoration: const InputDecoration(
+                        labelText: "Change your Security Question's answer"),
                   ),
                   TextFormField(
                     onChanged: (val) {
@@ -361,8 +351,8 @@ class BodyMain extends State<PageBody> {
                         _PhysicalComplications = val;
                       });
                     },
-                    decoration: const InputDecoration(labelText: "Change your physical complications"
-                  ),
+                    decoration: const InputDecoration(
+                        labelText: "Change your physical complications"),
                   ),
                   TextFormField(
                     onChanged: (val) {
@@ -370,8 +360,8 @@ class BodyMain extends State<PageBody> {
                         _NotableFeature = val;
                       });
                     },
-                    decoration: const InputDecoration(labelText: "Change your notable feature"
-                  ),
+                    decoration: const InputDecoration(
+                        labelText: "Change your notable feature"),
                   ),
                 ],
               ),
@@ -379,60 +369,51 @@ class BodyMain extends State<PageBody> {
 
             ElevatedButton(
               onPressed: () async {
+                print('Console Message Using Print');
 
-                  print('Console Message Using Print');
+                User? user = FirebaseAuth.instance.currentUser;
+                final uid = user!.uid;
 
-                  User? user = FirebaseAuth.instance.currentUser;
-                  final uid = user!.uid;
+                print(uid);
 
-                  print(uid);
+                await FirebaseFirestore.instance
+                    .collection("users")
+                    .doc(uid)
+                    .update({
+                  '_FirstName': _FirstName,
+                  '_MiddleName': _MiddleName,
+                  '_LastName': _LastName,
+                  '_Email': _Email,
+                  '_Phone': _PhoneNumber,
+                  'FamilyID': null,
+                  '_BloodGroup': _BloodGroup,
+                  '_Address': _Address,
+                  '_BirthCertificateNumber': _BirthCertificateNumber,
+                  '_PassportNumber': _PassportNumber,
+                  '_NationalIdentityNumber': _NationalIdentityNumber,
+                  '_SecurityQuestionAnswer': _SecurityQuestionAnswer,
+                  '_NotableFeature': _NotableFeature,
+                  '_PhysicalComplications': _PhysicalComplications,
+                  '_PriorityContactNumber': _PriorityContactNumber,
+                  '_PriorityContactEmail': _PriorityContactEmail,
+                  '_PriorityContactName': _PriorityContactName,
+                  '_PriorityContactRelation': _PriorityContactRelation,
+                });
 
-
-
-
-                  await FirebaseFirestore.instance.collection("users").doc(uid).update({
-
-                    '_FirstName': _FirstName,
-                    '_MiddleName': _MiddleName,
-                    '_LastName': _LastName,
-
-                    '_Email': _Email,
-                    '_Phone': _PhoneNumber,
-
-                    'FamilyID': null,
-
-                    '_BloodGroup': _BloodGroup,
-                    '_Address': _Address,
-
-                    '_BirthCertificateNumber': _BirthCertificateNumber,
-                    '_PassportNumber': _PassportNumber,
-                    '_NationalIdentityNumber': _NationalIdentityNumber,
-
-                    '_SecurityQuestionAnswer': _SecurityQuestionAnswer,
-                    '_NotableFeature': _NotableFeature,
-                    '_PhysicalComplications': _PhysicalComplications,
-
-                    '_PriorityContactNumber': _PriorityContactNumber,
-                    '_PriorityContactEmail': _PriorityContactEmail,
-                    '_PriorityContactName': _PriorityContactName,
-                    '_PriorityContactRelation': _PriorityContactRelation,
-
-                  });
-
-                    Scaffold.of(context).showSnackBar(new SnackBar(content: new Text("User Modified"),));
-                },
+                ScaffoldMessenger.of(context).showSnackBar(new SnackBar(
+                  content: new Text("User Modified"),
+                ));
+              },
               child: const Text("Confirm Changes"),
             ),
 
             ElevatedButton(
               onPressed: () {
-                    Navigator.pushReplacement(
+                Navigator.pushReplacement(
                     context, MaterialPageRoute(builder: (_) => Info()));
-
               },
               child: const Text("Cancel Modifications"),
             ),
-
           ],
         ),
       ),

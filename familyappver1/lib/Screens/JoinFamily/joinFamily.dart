@@ -40,7 +40,7 @@ class _JoinGroupState extends State<JoinGroup> {
                   SizedBox(
                     height: 40.0,
                   ),
-                  RaisedButton(
+                  MaterialButton(
                     color: Colors.blue,
                     child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 80),
@@ -58,36 +58,43 @@ class _JoinGroupState extends State<JoinGroup> {
                         FocusScope.of(context).unfocus();
                         final User? user = auth.currentUser;
                         final uid = user!.uid;
-                        var famIdChecker= await FirebaseFirestore.instance.collection('users').doc(uid).get().then((value) {return value.data()!['FamilyId'];});
-                        fId=famIdChecker;
-                        if(famIdChecker==null) {
+                        var famIdChecker = await FirebaseFirestore.instance
+                            .collection('users')
+                            .doc(uid)
+                            .get()
+                            .then((value) {
+                          return value.data()!['FamilyId'];
+                        });
+                        fId = famIdChecker;
+                        if (famIdChecker == null) {
                           List<String> members = [];
                           members.add(uid);
-                          await FirebaseFirestore.instance.collection(
-                              "families")
+                          await FirebaseFirestore.instance
+                              .collection("families")
                               .doc(_groupIdController.text)
-                              .update(
-                              {
-                                'members': FieldValue.arrayUnion(members),
-                              });
-                          await FirebaseFirestore.instance.collection("users")
+                              .update({
+                            'members': FieldValue.arrayUnion(members),
+                          });
+                          await FirebaseFirestore.instance
+                              .collection("users")
                               .doc(uid)
                               .update({
                             'FamilyId': _groupIdController.text,
                           });
                           Fluttertoast.showToast(
                               msg: "Family Joined Successfully");
-                        }
-                        else{
-                          String name=await FirebaseFirestore.instance
+                        } else {
+                          String name = await FirebaseFirestore.instance
                               .collection('families')
                               .doc(fId)
                               .get()
                               .then((value) {
                             return value.data()!['Name'];
                           });
-                          Fluttertoast.showToast(msg: "You are already in a Family Group");
-                          Fluttertoast.showToast(msg: "Group Name: "+name,
+                          Fluttertoast.showToast(
+                              msg: "You are already in a Family Group");
+                          Fluttertoast.showToast(
+                              msg: "Group Name: " + name,
                               toastLength: Toast.LENGTH_LONG);
                         }
                       } catch (e) {

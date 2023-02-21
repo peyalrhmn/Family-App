@@ -41,7 +41,7 @@ class _CreateGroupState extends State<CreateGroup> {
                   SizedBox(
                     height: 40.0,
                   ),
-                  RaisedButton(
+                  MaterialButton(
                     color: Colors.blue,
                     child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 80),
@@ -56,41 +56,53 @@ class _CreateGroupState extends State<CreateGroup> {
                     ),
                     onPressed: () async {
                       FocusScope.of(context).unfocus();
-                      try{
+                      try {
                         final User? user = auth.currentUser;
                         final uid = user!.uid;
-                        var famIdChecker= await FirebaseFirestore.instance.collection('users').doc(uid).get().then((value) {return value.data()!['FamilyId'];});
-                        fId=famIdChecker;
-                        if(famIdChecker==null) {
+                        var famIdChecker = await FirebaseFirestore.instance
+                            .collection('users')
+                            .doc(uid)
+                            .get()
+                            .then((value) {
+                          return value.data()!['FamilyId'];
+                        });
+                        fId = famIdChecker;
+                        if (famIdChecker == null) {
                           List<String> members = [];
                           members.add(uid);
                           DocumentReference _docRef = await FirebaseFirestore
-                              .instance.collection("families").add({
+                              .instance
+                              .collection("families")
+                              .add({
                             'Name': _groupNameController.text,
                             'creator': uid,
                             'members': members,
                             'Created At': Timestamp.now(),
                           });
-                          await FirebaseFirestore.instance.collection("users")
+                          await FirebaseFirestore.instance
+                              .collection("users")
                               .doc(uid)
                               .update({
                             'FamilyId': _docRef.id,
                           });
-                          Fluttertoast.showToast(msg: "Family Group Created",);
-                        }
-                        else{
-                          String name=await FirebaseFirestore.instance
+                          Fluttertoast.showToast(
+                            msg: "Family Group Created",
+                          );
+                        } else {
+                          String name = await FirebaseFirestore.instance
                               .collection('families')
                               .doc(fId)
                               .get()
                               .then((value) {
                             return value.data()!['Name'];
                           });
-                          Fluttertoast.showToast(msg: "You are already in a Family Group");
-                          Fluttertoast.showToast(msg: "Group Name: "+name,
+                          Fluttertoast.showToast(
+                              msg: "You are already in a Family Group");
+                          Fluttertoast.showToast(
+                              msg: "Group Name: " + name,
                               toastLength: Toast.LENGTH_LONG);
                         }
-                      } catch (e){
+                      } catch (e) {
                         print(e);
                         Fluttertoast.showToast(msg: e.toString());
                       }
